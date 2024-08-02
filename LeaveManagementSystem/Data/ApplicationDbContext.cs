@@ -11,5 +11,8 @@ namespace LeaveManagementSystem.Data
             : base(options)
         {
         }
+
+        //Permite que EF tome esta clase(DbSet<ClaseModelo>) como tabla
+        public DbSet<LeaveType> LeaveTypes { get; set; }
     }
 }
