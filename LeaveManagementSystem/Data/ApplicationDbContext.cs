@@ -12,7 +12,7 @@ namespace LeaveManagementSystem.Data
         {
         }
 
-        //Permite que EF tome esta clase(DbSet<ClaseModelo>) como tabla
+        //Permite que EF tome esta clase(DbSet<ClaseModelo>) como tabla, siempre enlistar los modelos que creamos
         public DbSet<LeaveType> LeaveTypes { get; set; }
     }
 }
