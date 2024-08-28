@@ -1,10 +1,14 @@
 ﻿using LeaveManagementSystem.Models.LeaveType;
 using LeaveManagementSystem.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace LeaveManagementSystem.Controllers
 {
+
+    [Authorize(Roles = Roles.Administrator)]
+
     //CONTROLADOR GENERADO POR SCAFFOLDING (Excepto las conexiones a la base de datos [_context])
     public class LeaveTypesController(ILeaveTypeServices _leaveTypeServices) : Controller
     {
