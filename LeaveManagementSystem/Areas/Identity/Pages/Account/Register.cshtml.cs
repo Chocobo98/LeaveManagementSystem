@@ -157,7 +157,7 @@ namespace LeaveManagementSystem.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _userManager.AddToRoleAsync(user, Roles.Supervisor);
+                        await _userManager.AddToRoleAsync(user, Roles.Employee);
                     }
 
                     var userId = await _userManager.GetUserIdAsync(user);
