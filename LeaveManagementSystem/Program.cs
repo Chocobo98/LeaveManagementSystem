@@ -1,4 +1,6 @@
-using LeaveManagementSystem.Services;
+using LeaveManagementSystem.Services.Email;
+using LeaveManagementSystem.Services.LeaveAllocations;
+using LeaveManagementSystem.Services.LeaveTypes;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +16,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly()); //Bypass for profile (If we have a bunch of differents profile, we must add for each one)
 builder.Services.AddScoped<ILeaveTypeServices, LeaveTypeServices>(); //Usable on other classes to inject it on differents places
+builder.Services.AddScoped<ILeaveAllocationsService, LeaveAllocationsService>();
 builder.Services.AddTransient<IEmailSender, EmailSender>(); //New Client, new instance everytime email should be dispase
 
 //builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)

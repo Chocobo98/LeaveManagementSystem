@@ -1,5 +1,5 @@
 ﻿using LeaveManagementSystem.Models.LeaveType;
-using LeaveManagementSystem.Services;
+using LeaveManagementSystem.Services.LeaveTypes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
