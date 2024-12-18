@@ -19,12 +19,13 @@ builder.Services.AddScoped<ILeaveTypeServices, LeaveTypeServices>(); //Usable on
 builder.Services.AddScoped<ILeaveAllocationsService, LeaveAllocationsService>();
 builder.Services.AddTransient<IEmailSender, EmailSender>(); //New Client, new instance everytime email should be dispase
 
+
 //builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
 //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
-//Ahora indica que la nueva tabla default de usuario, es la ApplicationUser
+//Ahora indica que la nueva tabla default de usuario, es la ApplicationUser (Codigo de arriba era el antiguo)
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddRoles<IdentityRole>()
+    .AddRoles<IdentityRole>() //Identificar los roles referentes al ApplicationUser
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 

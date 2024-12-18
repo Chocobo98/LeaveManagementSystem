@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LeaveManagementSystem.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser> //<-- Identifica el modelo donde Identity va tomar de referencia
     {
         //IdentityDbContext - Tiene ya definido y creado las tablas y roles
         //Al hacer override al IdentityDBContext, sera relativo con las tabla que tomara en cuenta a la nueva tabla

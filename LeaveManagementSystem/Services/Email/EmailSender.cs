@@ -7,9 +7,9 @@ namespace LeaveManagementSystem.Services.Email
     {
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-            var fromAddress = _configuration["EmailSettings:DefaultEmailAddress"];
-            var smtpServer = _configuration["EmailSettings:Server"];
-            var smtpPort = Convert.ToInt32(_configuration["EmailSettings:Port"]);
+            string? fromAddress = _configuration["EmailSettings:DefaultEmailAddress"];
+            string? smtpServer = _configuration["EmailSettings:Server"];
+            Int32 smtpPort = Convert.ToInt32(_configuration["EmailSettings:Port"]);
 
             var message = new MailMessage
             {
