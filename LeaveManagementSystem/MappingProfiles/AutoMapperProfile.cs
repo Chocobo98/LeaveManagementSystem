@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using LeaveManagementSystem.Data;
 using LeaveManagementSystem.Models.LeaveType;
+using LeaveManagementSystem.Models.Periods;
 
 namespace LeaveManagementSystem.MappingProfiles
 {
@@ -14,6 +14,11 @@ namespace LeaveManagementSystem.MappingProfiles
             CreateMap<LeaveTypeCreateVM, LeaveType>();
 
             CreateMap<LeaveType, LeaveTypeEditVM>().ReverseMap(); //Mapea de LeaveType a LeaveTypeEditVM y viceversa
+
+            CreateMap<Period, PeriodsVM>().ReverseMap();
+
+            CreateMap<PeriodsCreateVM, Period>();
+
 
             // In case from both models have differents properties names...
             //CreateMap<LeaveType, LeaveTypeReadOnlyVM>();
