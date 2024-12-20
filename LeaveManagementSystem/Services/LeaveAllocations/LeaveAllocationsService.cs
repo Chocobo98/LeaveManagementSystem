@@ -20,9 +20,9 @@ namespace LeaveManagementSystem.Services.LeaveAllocations
             {
                 var leaveAllocation = new LeaveAllocation
                 {
-                    EmployeeId = employeeId,
-                    LeaveTypeID = leaveType.Id,
-                    PeriodId = period.Id,
+                    EmployeeId = employeeId, //<-- FK
+                    LeaveTypeID = leaveType.Id, //<-- FK 
+                    PeriodId = period.Id, //<-- FK
                     Days = leaveType.NumberOfDays / monthsRemaing
                 };
 

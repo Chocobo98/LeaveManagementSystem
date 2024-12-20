@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LeaveManagementSystem.Services.LeaveTypes
 {
-    public class LeaveTypeServices(ApplicationDbContext context, IMapper mapper) : ILeaveTypeServices
+    public class LeaveTypeServices(ApplicationDbContext _context, IMapper _mapper) : ILeaveTypeServices
     {
         //private readonly ApplicationDbContext context = context;
         //private readonly IMapper mapper = mapper;
@@ -12,68 +12,68 @@ namespace LeaveManagementSystem.Services.LeaveTypes
         public async Task<List<LeaveTypeReadOnlyVM>> GetAll()
         {
             //Data Model
-            var dataModel = await context.LeaveTypes.ToListAsync();
+            var dataModel = await _context.LeaveTypes.ToListAsync();
             //AutoMapper
-            var viewModelData = mapper.Map<List<LeaveTypeReadOnlyVM>>(dataModel);
+            var viewModelData = _mapper.Map<List<LeaveTypeReadOnlyVM>>(dataModel);
             return viewModelData;
         }
 
         public async Task<T?> Find<T>(int id) where T : class
         {
-            var data = await context.LeaveTypes.FirstOrDefaultAsync(x => x.Id == id);
+            var data = await _context.LeaveTypes.FirstOrDefaultAsync(x => x.Id == id);
 
             if (data == null)
             {
                 return null;
             }
 
-            var viewModel = mapper.Map<T>(data);
+            var viewModel = _mapper.Map<T>(data);
 
             return viewModel;
         }
 
         public async Task Create(LeaveTypeCreateVM model)
         {
-            var data = mapper.Map<LeaveType>(model);
-            context.Add(data);
-            await context.SaveChangesAsync();
+            var data = _mapper.Map<LeaveType>(model);
+            _context.Add(data);
+            await _context.SaveChangesAsync();
         }
 
         public async Task Edit(LeaveTypeEditVM model)
         {
-            var data = mapper.Map<LeaveType>(model);
-            context.Update(data);
-            await context.SaveChangesAsync();
+            var data = _mapper.Map<LeaveType>(model);
+            _context.Update(data);
+            await _context.SaveChangesAsync();
         }
 
         public async Task Remove(LeaveTypeReadOnlyVM model)
         {
-            var data = await context.LeaveTypes.FindAsync(model.Id);
+            var data = await _context.LeaveTypes.FindAsync(model.Id);
 
             if (data != null)
             {
-                context.LeaveTypes.Remove(data);
-                await context.SaveChangesAsync();
+                _context.LeaveTypes.Remove(data);
+                await _context.SaveChangesAsync();
             }
 
         }
 
         public bool LeaveTypeExists(int id)
         {
-            return context.LeaveTypes.Any(e => e.Id == id);
+            return _context.LeaveTypes.Any(e => e.Id == id);
         }
 
         //Metodo asincrono para buscar si el tipo de ausencia existe
         public async Task<bool> CheckIfLeaveTypeNameExistsAsync(string name)
         {
             var lowerCaseName = name.ToLower();
-            return await context.LeaveTypes.AnyAsync(x => x.Name.ToLower().Equals(lowerCaseName));
+            return await _context.LeaveTypes.AnyAsync(x => x.Name.ToLower().Equals(lowerCaseName));
         }
 
         public async Task<bool> CheckIfLeaveTypeNameExistsAsyncForEdit(LeaveTypeEditVM leaveType)
         {
             var lowerCaseName = leaveType.Name.ToLower();
-            return await context.LeaveTypes.AnyAsync(x => x.Name.ToLower().Equals(lowerCaseName) && x.Id != leaveType.Id);
+            return await _context.LeaveTypes.AnyAsync(x => x.Name.ToLower().Equals(lowerCaseName) && x.Id != leaveType.Id);
         }
 
     }
