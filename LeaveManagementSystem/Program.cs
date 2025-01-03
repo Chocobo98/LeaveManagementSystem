@@ -1,4 +1,7 @@
-using LeaveManagementSystem.Services;
+using LeaveManagementSystem.Services.Email;
+using LeaveManagementSystem.Services.LeaveAllocations;
+using LeaveManagementSystem.Services.LeaveTypes;
+using LeaveManagementSystem.Services.Periods;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -14,14 +17,18 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly()); //Bypass for profile (If we have a bunch of differents profile, we must add for each one)
 builder.Services.AddScoped<ILeaveTypeServices, LeaveTypeServices>(); //Usable on other classes to inject it on differents places
+builder.Services.AddScoped<ILeaveAllocationsService, LeaveAllocationsService>();
+builder.Services.AddScoped<IPeriodsService, PeriodsService>();
 builder.Services.AddTransient<IEmailSender, EmailSender>(); //New Client, new instance everytime email should be dispase
+builder.Services.AddHttpContextAccessor(); //HTTPContext Service
+
 
 //builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
 //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
-//Ahora indica que la nueva tabla default de usuario, es la ApplicationUser
+//Ahora indica que la nueva tabla default de usuario, es la ApplicationUser (Codigo de arriba era el antiguo)
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddRoles<IdentityRole>()
+    .AddRoles<IdentityRole>() //Identificar los roles referentes al ApplicationUser
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
