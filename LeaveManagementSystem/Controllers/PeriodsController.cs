@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace LeaveManagementSystem.Controllers
 {
     [Authorize(Roles = Roles.Administrator)]
-    public class PeriodsController(ApplicationDbContext _context, IPeriodsService _periodService) : Controller
+    public class PeriodsController(IPeriodsService _periodService) : Controller
     {
         //private readonly ApplicationDbContext _context;
         private const string NameExistsValidationMessage = "Esta opcion ya esta registrada";

@@ -20,6 +20,7 @@ builder.Services.AddScoped<ILeaveTypeServices, LeaveTypeServices>(); //Usable on
 builder.Services.AddScoped<ILeaveAllocationsService, LeaveAllocationsService>();
 builder.Services.AddScoped<IPeriodsService, PeriodsService>();
 builder.Services.AddTransient<IEmailSender, EmailSender>(); //New Client, new instance everytime email should be dispase
+builder.Services.AddHttpContextAccessor(); //HTTPContext Service
 
 
 //builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
