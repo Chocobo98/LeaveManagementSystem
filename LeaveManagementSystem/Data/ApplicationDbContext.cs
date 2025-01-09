@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace LeaveManagementSystem.Data
 {
@@ -18,60 +18,30 @@ namespace LeaveManagementSystem.Data
         //Data Seeding
         //Nos permite llenar con valores las tablas involucradas cuando el modelo se crea (Solo cambia el tipo de dato dentro del buider.Entity y especifica las columnas a llenar)
         //NOTE: Para los Id, utiliza formato GUID para mayro seguridad. Para contraseñas, usar PasswordHasher
+        //Edit-Refactor: Los llenados se movieron para la carpeta de Configuration
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            //Llenado de Roles
-            builder.Entity<IdentityRole>().HasData(
-                new IdentityRole
-                {
-                    Id = "5d2f419b-1e2e-425c-b0c0-eeedbed738f5",
-                    Name = "Employee",
-                    NormalizedName = "EMPLOYEE"
-                },
-                new IdentityRole
-                {
-                    Id = "084d4bda-bbec-4140-ae2c-4e59f6ff0b44",
-                    Name = "Supervisor",
-                    NormalizedName = "SUPERVISOR"
-                },
-                new IdentityRole
-                {
-                    Id = "4ac2cb24-f0cb-424d-8c97-76337e0d9404",
-                    Name = "Administrator",
-                    NormalizedName = "ADMINISTRATOR"
-                }
-            );
 
-            //Llenado del admin user
-            //EDIT: Se cambio IdentityUser por ApplicationUser
-            var hasher = new PasswordHasher<ApplicationUser>();
-            builder.Entity<ApplicationUser>().HasData(new ApplicationUser
-            {
-                Id = "74f30c00-f192-4a39-8188-33be260d31c2",
-                Email = "admin@localhost.com",
-                NormalizedEmail = "ADMIN@LOCALHOST.COM",
-                NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                UserName = "admin@localhost.com",
-                PasswordHash = hasher.HashPassword(null, "P@ssword1"),
-                EmailConfirmed = true,
-                FirstName = "Default",
-                LastName = "Admin",
-                DateOfBirth = new DateOnly(1998, 03, 01)
-            });
+            //Manera para separar tus Data Seedings en diferentes archivos para evitar aumentar de codigo en OnModelCreating()
+            //[Crea una carpeta llamada Configuration y dentro de ella agrega las clases que deseas separar sus llenados,
+            //heredando cada una con IEntityTypeConfiguration<modelo>]
+            //Opcion 1
+            //builder.ApplyConfiguration(new ApplicationUserConfiguration());
+            //builder.ApplyConfiguration(new IdentityUserRoleConfiguration());
+            //builder.ApplyConfiguration(new LeaveRequestStatusConfiguration());
 
-            //Relacion del usuario Admin con el Rol Admin
-            builder.Entity<IdentityUserRole<string>>().HasData(
-                new IdentityUserRole<string>
-                {
-                    RoleId = "4ac2cb24-f0cb-424d-8c97-76337e0d9404",
-                    UserId = "74f30c00-f192-4a39-8188-33be260d31c2"
-                });
+            //Opcion 2
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
         //Permite que EF tome esta clase(DbSet<ClaseModelo>) como tabla, siempre enlistar los modelos que creamos
         public DbSet<LeaveType> LeaveTypes { get; set; }
         public DbSet<LeaveAllocation> LeaveAllocations { get; set; }
         public DbSet<Period> Periods { get; set; }
+        public DbSet<LeaveRequestStatus> LeaveRequestStatuses { get; set; }
+
+        public DbSet<LeaveRequest> LeaveRequests { get; set; }
     }
 }
