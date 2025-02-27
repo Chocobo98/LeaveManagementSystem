@@ -11,5 +11,7 @@ namespace LeaveManagementSystem.Services.LeaveAllocations
         Task<LeaveAllocationEditVM> GetEmployeeAllocation(int id);
         Task EditAllocation(LeaveAllocationEditVM allocationEditVM);
         Task<List<EmployeeListVM>> GetEmployees();
+
+        Task<LeaveAllocation> GetCurrentAllocation(int leaveTypeId, string employeeId);
     }
 }

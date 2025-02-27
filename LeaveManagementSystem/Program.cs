@@ -1,7 +1,9 @@
 using LeaveManagementSystem.Services.Email;
 using LeaveManagementSystem.Services.LeaveAllocations;
+using LeaveManagementSystem.Services.LeaveRequests;
 using LeaveManagementSystem.Services.LeaveTypes;
 using LeaveManagementSystem.Services.Periods;
+using LeaveManagementSystem.Services.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +21,19 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly()); //Bypass for pr
 builder.Services.AddScoped<ILeaveTypeServices, LeaveTypeServices>(); //Usable on other classes to inject it on differents places
 builder.Services.AddScoped<ILeaveAllocationsService, LeaveAllocationsService>();
 builder.Services.AddScoped<IPeriodsService, PeriodsService>();
+builder.Services.AddScoped<ILeaveRequestsService, LeaveRequestsService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddTransient<IEmailSender, EmailSender>(); //New Client, new instance everytime email should be dispase
+
+//Authorization Policy
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminSupervisorOnly", policy =>
+    {
+        policy.RequireRole(Roles.Administrator, Roles.Supervisor);
+    });
+});
+
 builder.Services.AddHttpContextAccessor(); //HTTPContext Service
 
 

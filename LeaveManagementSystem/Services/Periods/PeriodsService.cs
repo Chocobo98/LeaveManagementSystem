@@ -69,5 +69,11 @@ namespace LeaveManagementSystem.Services.Periods
         public bool PeriodExists(int? id)
         { return _context.Periods.Any(x => x.Id == id); }
 
+        public async Task<Period> GetCurrentPeriod()
+        {
+            var currentDate = DateTime.Now;
+            var period = await _context.Periods.SingleAsync(x => x.EndDate.Year == currentDate.Year);
+            return period;
+        }
     }
 }

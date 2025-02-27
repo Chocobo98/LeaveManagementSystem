@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LeaveManagementSystem.Models.LeaveAllocations;
+using LeaveManagementSystem.Models.LeaveRequests;
 using LeaveManagementSystem.Models.LeaveType;
 using LeaveManagementSystem.Models.Periods;
 
@@ -22,6 +23,9 @@ namespace LeaveManagementSystem.MappingProfiles
             CreateMap<LeaveAllocation, LeaveAllocationVM>();
             CreateMap<LeaveAllocation, LeaveAllocationEditVM>();
             CreateMap<ApplicationUser, EmployeeListVM>();
+
+            //LeaveRequest
+            CreateMap<LeaveRequestCreateVM, LeaveRequest>();
 
             // In case from both models have differents properties names...
             //CreateMap<LeaveType, LeaveTypeReadOnlyVM>();
