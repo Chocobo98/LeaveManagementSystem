@@ -1,10 +1,9 @@
-using LeaveManagementSystem.Common.Static;
-using LeaveManagementSystem.Services.Email;
-using LeaveManagementSystem.Services.LeaveAllocations;
-using LeaveManagementSystem.Services.LeaveRequests;
-using LeaveManagementSystem.Services.LeaveTypes;
-using LeaveManagementSystem.Services.Periods;
-using LeaveManagementSystem.Services.Users;
+using LeaveManagementSystem.Application.Services.Email;
+using LeaveManagementSystem.Application.Services.LeaveAllocations;
+using LeaveManagementSystem.Application.Services.LeaveRequests;
+using LeaveManagementSystem.Application.Services.LeaveTypes;
+using LeaveManagementSystem.Application.Services.Periods;
+using LeaveManagementSystem.Application.Services.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;

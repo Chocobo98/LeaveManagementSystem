@@ -1,4 +1,4 @@
-﻿using LeaveManagementSystem.Models;
+﻿using LeaveManagementSystem.Application.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LeaveManagementSystem.Controllers
