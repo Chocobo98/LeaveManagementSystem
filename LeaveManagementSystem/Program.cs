@@ -1,13 +1,6 @@
-using LeaveManagementSystem.Application.Services.Email;
-using LeaveManagementSystem.Application.Services.LeaveAllocations;
-using LeaveManagementSystem.Application.Services.LeaveRequests;
-using LeaveManagementSystem.Application.Services.LeaveTypes;
-using LeaveManagementSystem.Application.Services.Periods;
-using LeaveManagementSystem.Application.Services.Users;
+using LeaveManagementSystem.Application;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,13 +10,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly()); //Bypass for profile (If we have a bunch of differents profile, we must add for each one)
-builder.Services.AddScoped<ILeaveTypeServices, LeaveTypeServices>(); //Usable on other classes to inject it on differents places
-builder.Services.AddScoped<ILeaveAllocationsService, LeaveAllocationsService>();
-builder.Services.AddScoped<IPeriodsService, PeriodsService>();
-builder.Services.AddScoped<ILeaveRequestsService, LeaveRequestsService>();
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddTransient<IEmailSender, EmailSender>(); //New Client, new instance everytime email should be dispase
+//EDIT: AddAutoMapper and D.I services has moved to Application Layer as ApplicationServicesRegistration
+/*builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());*/ //Bypass for profile (If we have a bunch of differents profile, we must add for each one)
+
+//Ahora solo el Program se dedica a agregar los servicios hacia la capa de Aplicacion
+ApplicationServicesRegistration.AddApplicationServices(builder.Services);
+
 
 //Authorization Policy
 builder.Services.AddAuthorization(options =>
