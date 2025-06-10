@@ -1,21 +1,14 @@
 using LeaveManagementSystem.Application;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-//EDIT: AddAutoMapper and D.I services has moved to Application Layer as ApplicationServicesRegistration
+//EDIT: AddAutoMapper,D.I services and ApplicationDBContext service has moved to Application Layer as ApplicationServicesRegistration
 /*builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());*/ //Bypass for profile (If we have a bunch of differents profile, we must add for each one)
 
-//Ahora solo el Program se dedica a agregar los servicios hacia la capa de Aplicacion
+//Ahora solo el Program se dedica a agregar el builder hacia la capa de Aplicacion
+DataServicesRegistration.AddDataServices(builder.Services, builder.Configuration);
 ApplicationServicesRegistration.AddApplicationServices(builder.Services);
-
 
 //Authorization Policy
 builder.Services.AddAuthorization(options =>
