@@ -1,2 +1,2 @@
-﻿global using LeaveManagementSystem.Common;
+﻿global using LeaveManagementSystem.Common.Static;
 global using LeaveManagementSystem.Data;

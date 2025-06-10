@@ -1,4 +1,5 @@
-﻿using LeaveManagementSystem.Models.LeaveAllocations;
+﻿using LeaveManagementSystem.Common.Static;
+using LeaveManagementSystem.Models.LeaveAllocations;
 using LeaveManagementSystem.Services.LeaveAllocations;
 using LeaveManagementSystem.Services.LeaveTypes;
 using Microsoft.AspNetCore.Authorization;

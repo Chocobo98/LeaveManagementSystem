@@ -1,3 +1,4 @@
+using LeaveManagementSystem.Common.Static;
 using LeaveManagementSystem.Services.Email;
 using LeaveManagementSystem.Services.LeaveAllocations;
 using LeaveManagementSystem.Services.LeaveRequests;
