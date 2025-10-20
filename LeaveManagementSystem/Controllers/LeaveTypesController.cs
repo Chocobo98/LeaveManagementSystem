@@ -10,7 +10,7 @@ namespace LeaveManagementSystem.Controllers
     [Authorize(Roles = Roles.Administrator)]
 
     //CONTROLADOR GENERADO POR SCAFFOLDING (Excepto las conexiones a la base de datos [_context])
-    public class LeaveTypesController(ILeaveTypeServices _leaveTypeServices) : Controller
+    public class LeaveTypesController(ILeaveTypeServices _leaveTypeServices, ILogger<LeaveTypesController> _logger) : Controller
     {
         //private readonly ApplicationDbContext _context;
         //private readonly IMapper _mapper;
@@ -47,6 +47,7 @@ namespace LeaveManagementSystem.Controllers
             //var viewModelData = _mapper.Map<IEnumerable<LeaveTypeReadOnlyVM>>(dataModel);
 
             //Invoking the Data Business from the Service Layer
+            _logger.LogInformation("Leave typed loaded");
             var viewModelData = await _leaveTypeServices.GetAll();
 
             //Returning ViewModel
@@ -93,6 +94,7 @@ namespace LeaveManagementSystem.Controllers
 
             if (await _leaveTypeServices.CheckIfLeaveTypeNameExistsAsync(leaveTypeCreate.Name))
             {
+                _logger.LogWarning("Leave Type attempt failed due to invalidity");
                 ModelState.AddModelError(nameof(leaveTypeCreate.Name), NameExistsValidationMessage);
             }
 

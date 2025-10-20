@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using LeaveManagementSystem.Application.Models.LeaveAllocations;
-using LeaveManagementSystem.Application.Models.LeaveRequests;
 using LeaveManagementSystem.Application.Services.LeaveAllocations;
 using LeaveManagementSystem.Application.Services.Users;
 using Microsoft.EntityFrameworkCore;

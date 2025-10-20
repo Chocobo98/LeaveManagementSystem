@@ -1,5 +1,6 @@
 using LeaveManagementSystem.Application;
 using Microsoft.AspNetCore.Identity;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 //Ahora solo el Program se dedica a agregar el builder hacia la capa de Aplicacion
 DataServicesRegistration.AddDataServices(builder.Services, builder.Configuration);
 ApplicationServicesRegistration.AddApplicationServices(builder.Services);
+
+// Serilog Integration
+builder.Host.UseSerilog((ctx, config) =>
+    config.WriteTo.Console()
+    .ReadFrom.Configuration(ctx.Configuration)
+);
 
 //Authorization Policy
 builder.Services.AddAuthorization(options =>
@@ -26,7 +33,13 @@ builder.Services.AddHttpContextAccessor(); //HTTPContext Service
 //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
 //Ahora indica que la nueva tabla default de usuario, es la ApplicationUser (Codigo de arriba era el antiguo)
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>
+(options =>
+{
+    options.SignIn.RequireConfirmedAccount = true;
+    options.Password.RequiredLength = 8;
+    options.Password.RequireNonAlphanumeric = false;
+})
     .AddRoles<IdentityRole>() //Identificar los roles referentes al ApplicationUser
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
